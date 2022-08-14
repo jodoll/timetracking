@@ -22,6 +22,16 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.jar {
+    manifest.attributes["Main-Class"] = "com.johannesdoll.timetracking.ApplicationKt"
+    val dependencies = configurations
+        .runtimeClasspath
+        .get()
+        .map(::zipTree)
+    from(dependencies)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
