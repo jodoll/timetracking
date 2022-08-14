@@ -171,7 +171,5 @@ TRCK-1203
 
 Also have a look at the [example](examples/task.report) file.
 
-## Footnotes
-
 [^start-of-week]: Not that it would matter in this project. What might happen is that Sunday appears at the end of the
 report, that's all.
