@@ -1,11 +1,11 @@
 package com.johannesdoll.timetracking.report.daily
 
 import arrow.core.NonEmptyList
-import com.johannesdoll.timetracking.report.Report
-import com.johannesdoll.timetracking.report.ReportBuilder
 import com.johannesdoll.timetracking.ext.alignToLength
 import com.johannesdoll.timetracking.model.TimeEntry
 import com.johannesdoll.timetracking.model.duration
+import com.johannesdoll.timetracking.report.Report
+import com.johannesdoll.timetracking.report.ReportBuilder
 import com.johannesdoll.timetracking.report.delegating.sequenceReport
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -66,3 +66,12 @@ class DailyReportBuilder: ReportBuilder {
         return BigDecimal.valueOf(fullHours + fractalHour, 2)
     }
 }
+
+private data class DailyReportEntry(
+    val dayOfWeek: DayOfWeek,
+    val duration: Duration,
+    val id: String,
+    val key: String?,
+    val description: String?,
+    val comment: String?
+)

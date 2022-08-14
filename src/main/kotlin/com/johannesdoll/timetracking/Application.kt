@@ -13,7 +13,6 @@ import com.johannesdoll.timetracking.reader.csv.csvReader
 import com.johannesdoll.timetracking.report.Report
 import com.johannesdoll.timetracking.report.daily.DailyReportBuilder
 import java.io.File
-import java.lang.IllegalArgumentException
 
 fun main(args: Array<String>) {
     val timeSheet = args.firstOrNull().toOption()
@@ -41,7 +40,6 @@ fun main(args: Array<String>) {
 
     DailyReportBuilder().build(entries).print()
 }
-
 
 fun Report.print(){
     lineSequence().forEach { println(it) }
