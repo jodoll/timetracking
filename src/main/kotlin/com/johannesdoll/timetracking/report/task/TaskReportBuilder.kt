@@ -1,4 +1,4 @@
-package com.johannesdoll.timetracking.report.daily
+package com.johannesdoll.timetracking.report.task
 
 import arrow.core.NonEmptyList
 import com.johannesdoll.timetracking.ext.alignToLength
@@ -14,41 +14,43 @@ import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.*
 
-class DailyReportBuilder: ReportBuilder {
+class TaskReportBuilder : ReportBuilder {
     override fun build(entries: List<TimeEntry>): Report = sequenceReport {
-        entries.groupByDay()
+        entries.groupByTask()
             .filter { it.value.isNotEmpty() }
-            .forEach { (day, entries) ->
+            .forEach { (task, entries) ->
                 val decimalFormat = DecimalFormat("#0.0#")
 
-                yield(day.getDisplayName(TextStyle.FULL, Locale.getDefault()))
+                yield(listOfNotNull(task.key, task.comment).joinToString(" - "))
                 entries.forEach { (_, entry) ->
+                    val day = entry.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
                     val durationInHours = entry.duration.toDecimalHours()
-                    val label = listOfNotNull(entry.key, entry.description, entry.comment).joinToString(" - ")
                     val durationText = decimalFormat.format(durationInHours).alignToLength(2, 5)
-                    yield("$durationText - $label")
+                    yield("$durationText - $day")
                 }
                 yield(buildString { repeat(10) { append("-") } })
-
-                val totalDuration = entries.map { it.value.duration }
-                    .reduce { acc, duration -> acc.plus(duration) }
-                    .toDecimalHours()
-                val totalDurationText = decimalFormat.format(totalDuration).alignToLength(2, 5)
-                yield("$totalDurationText - Total")
                 yield("")
             }
     }
 
-    private fun List<TimeEntry>.groupByDay(): Map<DayOfWeek, Map<String, DailyReportEntry>> = this
-        .groupBy { it.dayOfWeek }
-            .mapValues { entry ->
-                entry.value
-                    .groupBy { it.id }
-                    .mapValues { NonEmptyList.fromListUnsafe(it.value) }
-                    .mapValues { it.value.toDailyReportEntry() }
-            }
+    private class Task(val key: String, val comment: String?) {
+        override fun equals(other: Any?): Boolean =
+            (other as? Task)?.key == key
 
-    private fun NonEmptyList<TimeEntry>.toDailyReportEntry(): DailyReportEntry {
+        override fun hashCode(): Int =
+            key.hashCode()
+    }
+
+    private fun List<TimeEntry>.groupByTask(): Map<Task, Map<DayOfWeek, DailyReportEntry>> = this
+        .groupBy { Task(it.id, it.comment) }
+        .mapValues { entry ->
+            entry.value
+                .groupBy { it.dayOfWeek }
+                .mapValues { NonEmptyList.fromListUnsafe(it.value) }
+                .mapValues { it.value.toReportEntry() }
+        }
+
+    private fun NonEmptyList<TimeEntry>.toReportEntry(): DailyReportEntry {
         val totalDuration = map { it.duration }.reduce { acc, duration -> acc.plus(duration) }
         return DailyReportEntry(
             dayOfWeek = head.dayOfWeek,
@@ -60,4 +62,3 @@ class DailyReportBuilder: ReportBuilder {
         )
     }
 }
-
