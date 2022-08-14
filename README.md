@@ -70,7 +70,7 @@ java -jar build/libs/timetracking-1.0-SNAPSHOT.jar examples/timesheet.csv
 ## Format Description
 
 Each file stores a single calendar week.
-The week starts at Monday, as that's the only valid first day of a week (at least ISO says so).
+The week starts at Monday, as that's the only valid first day of a week[^start-of-week] (at least ISO says so).
 Each line can either be a comment or needs to adhere to the following format:
 
 ```
@@ -170,3 +170,8 @@ TRCK-1203
 ```
 
 Also have a look at the [example](examples/task.report) file.
+
+## Footnotes
+
+[^start-of-week]: Not that it would matter in this project. What might happen is that Sunday appears at the end of the
+report, that's all.
