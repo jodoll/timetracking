@@ -1,8 +1,18 @@
 # Time Tracking
 
-This is a simple utility to track work items via a simple file based structure.
-Data is stored in a `.csv` file and is human-readable.
-Via different scripts those files can be read and analyzed.
+Tired of using some tracking tool, that requires accounts, is overly complicated,
+might have sync issues and just makes time tracking an even less enjoyable task?
+If you're like me, and you just want to jot down your work items somewhere
+(especially when you're in a hurry or jumping between tasks)
+and then do a basic summary at the end of the week, this might be the tool for you.
+
+You'll keep track of your work items in a simple csv file.
+The file is human-readable, can be edited/merged easily, and you can track it in a VCS if you want.
+Did I mention that the organization of the file is also totally up to what you?
+I for exaple like to have a folder for each week and then a file per client, but whatever floats your goat.
+
+The only restriction might be that each file may only contain a single week
+(but you could alter the code easily if you'd really want to).
 
 ## Description
 
