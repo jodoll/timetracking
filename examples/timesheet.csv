@@ -1,0 +1,37 @@
+# Monday
+Mon, 1015, 1030,, TRCK-1032
+Mon, 1100, 1145,, Demo
+Mon, 1330, 1400,, Time Tracking
+Mon, 1400, 1500,, Architecture Meeting
+Mon, 1500, 1630, TRCK-1203, As a user I want to log into the app
+
+# Tuesday
+Tue, 800, 1030, TRCK-1203
+Tue, 1030, 1100,, Daily
+Tue, 1100, 1200, TRCK-1203
+Tue, 1300, 1530, TRCK-1203
+Tue, 1530, 1630,, Refinement
+Tue, 1630, 1715, TRCK-1203
+
+# Wednesday
+Wed, 845, 1030, TRCK-1204
+Wed, 1030, 1100,, Daily
+Wed, 1100, 1130, TRCK-1205
+Wed, 1130, 1200,, Refinement
+Wed, 1200, 1230, TRCK-108982
+Wed, 1330, 1400,, Setting up test device
+Wed, 1400, 1745, TRCK-1204
+
+# Thursday
+Thu, 830, 1030, TRCK-1203
+Thu, 1030, 1100,, Daily
+Thu, 1100, 1315, TRCK-1199
+Thu, 1315, 1700, TRCK-1199
+Thu, 1715, 1815, TRCK-1199
+
+# Friday
+Fri, 900, 1030,  TRCK-1203
+Fri, 1030, 1100,, Daily
+Fri, 1100, 1245,  TRCK-1203
+Fri, 1345, 1515, TRCK-1132
+Fri, 1515, 1800, TRCK-1132
