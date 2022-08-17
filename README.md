@@ -71,10 +71,11 @@ After that run the build:
 ./gradlew jar
 ```
 
-Then execute the tool with Java and pass the path to your time sheet as single argument:
+Then execute the tool with Java, call the subcommand `report` choose the report type you want
+and pass the path to your time sheet :
 
 ```bash
-java -jar build/libs/timetracking-1.0-SNAPSHOT.jar examples/timesheet.csv
+java -jar build/libs/timetracking-1.0-SNAPSHOT.jar report [task|daily] examples/timesheet.csv
 ```
 
 ## Format Description
@@ -135,11 +136,11 @@ Generally speaking the entries in the timesheet are grouped by their [ticket key
 or if there is none by their [description](#description).
 Grouping is case and whitespace sensitive (leading/trailing whitespace is ignored).
 
-Furthermore, grouping is done by day (might be configurable in the future)
-and some reports calculate a total over each item (will be also configurable at some point).
+Furthermore, you can choose what report you want to generate by passing the appropriate argument.
+Some reports calculate a total over each item (will be also configurable at some point).
 
 Time is calculated in hours, this means base 10, what comes after the dot are not minutes
-(you've guessed it: configurable in the future).
+(you've guessed it: probably configurable in the future).
 
 ### Daily Report
 
@@ -149,6 +150,8 @@ The key (or description) is shown, along with the description (if key is given) 
 of the first item of the ones grouped together respectively.
 
 Totals are calculated for each day.
+
+To generate this report type call the subcommand `report` with the argument `daily`.
 
 ```
 Wednesday
@@ -170,6 +173,8 @@ The task report groups entries by task first and then by day.
 
 The key (or description) is shown, along with the description (if key is given) and comment
 of the first item of the ones grouped together respectively.
+
+To generate this report type call the subcommand `report` with the argument `task`.
 
 ```
 TRCK-1203
