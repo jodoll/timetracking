@@ -38,7 +38,12 @@ class TaskReportBuilder : ReportBuilder {
             .forEach { (task, entries) ->
                 val decimalFormat = DecimalFormat("#0.0#")
 
-                yield(listOfNotNull(task.key, task.comment).joinToString(" - "))
+                yield(
+                    listOfNotNull(
+                        task.key,
+                        task.description.takeUnless { it == task.key },
+                    ).joinToString(" - ")
+                )
                 entries.forEach { (_, entry) ->
                     val day = entry.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
                     val durationInHours = entry.duration.toDecimalHours()
@@ -50,7 +55,7 @@ class TaskReportBuilder : ReportBuilder {
             }
     }
 
-    private class Task(val key: String, val comment: String?) {
+    private class Task(val key: String, val description: String?) {
         override fun equals(other: Any?): Boolean =
             (other as? Task)?.key == key
 
@@ -59,8 +64,11 @@ class TaskReportBuilder : ReportBuilder {
     }
 
     private fun List<TimeEntry>.groupByTask(): Map<Task, Map<DayOfWeek, DailyReportEntry>> = this
-        .groupBy { Task(it.id, it.comment) }
-        .mapValues { entry ->
+        .groupBy { it.id }
+        .mapKeys { (key, value) ->
+            val description = value.asSequence().mapNotNull { it.description }.firstOrNull()
+            Task(key, description)
+        }.mapValues { entry ->
             entry.value
                 .groupBy { it.dayOfWeek }
                 .mapValues { NonEmptyList.fromListUnsafe(it.value) }
