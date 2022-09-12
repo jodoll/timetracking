@@ -62,10 +62,6 @@ Wednesday
 ## Usage
 
 As there are currently no releases, you'll currently need to build the tool yourself.
-Furthermore, there are no command line options implemented right now, so choose the
-[`ReportBuilder`](src/main/kotlin/com/johannesdoll/timetracking/report/ReportBuilder.kt)
-you want to use by editing [`Application.kt`](src/main/kotlin/com/johannesdoll/timetracking/Application.kt).  
-After that run the build:
 
 ```bash
 ./gradlew jar
@@ -77,6 +73,9 @@ and pass the path to your time sheet :
 ```bash
 java -jar build/libs/timetracking-1.0-SNAPSHOT.jar report [task|daily] examples/timesheet.csv
 ```
+
+On top of that you can always call the program (with or without a subcommand) with the `-h` flag
+to get more information on how to use it.
 
 ## Format Description
 
